@@ -1,0 +1,33 @@
+$Id: README,v 1.5 1998/01/18 05:53:37 msolomon Exp msolomon $
+
+Business::UPS - UPS Shipping Cost Module
+
+Mark Solomon <msolomon@seva.net> 12/20/1997
+http://www.seva.net/~msolomon/
+
+---------------------------------------------------------------------------
+NOTE: Please read "LICENCE.ups" for United Parcel Service license!
+---------------------------------------------------------------------------
+
+Description:
+
+  This module requires input of the shipping method, origin zip code, 
+    destination zip code, and weight of the package. It then connects to
+    the UPS calculation server and outputs the total shipping charges and
+    the UPS zone.
+
+  It's a very simplified way of finding shipping costs based on the "Quick
+  Cost Calculator" document found on the UPS Website at
+    http://www.ups.com/tools/tools.html
+
+TO INSTALL:
+
+  1. Unpack to Dist file:
+	gunzip < UPS-x.xx.tar.gz | tar xvf -
+
+  2. Change to the dist dir and make the Makefile, make then install:
+	cd UPSShipping-x.xx
+	perl Makefile.PL
+	make
+	make install
+
