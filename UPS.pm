@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 #
 #	Figure UPS shipping 
-#	Started 01/07/1998 Mark Solomon
+#	Started 01/07/1998 Mark Solomon 
 #
 
 package Business::UPS;
@@ -12,21 +12,29 @@ require 5.003;
 BEGIN {
 	# set the version for version checking
         # if using RCS/CVS, this may be preferred
-        $VERSION = do { my @r = (q$Revision: 1.4 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r }; # must be all one line, for MakeMaker
+        $VERSION = do { my @r = (q$Revision: 1.6 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r }; # must be all one line, for MakeMaker
 }
 
 sub main::getUPS {
 
-	my ($product, $origin, $dest, $weight ) = @_;
+	my ($product, $origin, $dest, $weight, $country , $length,
+		$width, $height, $oversized, $cod) = @_;
 
 	my $ups_cgi = 'http://www.ups.com/using/services/rave/qcostcgi.cgi';
 	my $workString = "?";
 	$workString .= "accept_UPS_license_agreement=yes&";
 	$workString .= "10_action=3&";
-	$workString .= "13_product=".$product."&";
-	$workString .= "15_origPostal=".$origin."&";
-	$workString .= "19_destPostal=".$dest."&";
-	$workString .= "23_weight=".$weight."&";
+	$workString .= "13_product=" . $product . "&";
+	$workString .= "15_origPostal=" . $origin . "&";
+	$workString .= "19_destPostal=" . $dest . "&";
+	$workString .= "23_weight=" . $weight;
+	$workString .= "&22_destCountry=" . $country if $country;
+	$workString .= "&25_length=" . $length if $length;
+	$workString .= "&26_width=" . $width if $width;
+	$workString .= "&27_height=" . $height if $height;
+	$workString .= "&30_cod=" . $cod if $cod;
+	$workString .= "&29_oversized=1" if $oversized;
+	$workString .= "&30_cod=1" if $cod;
 	$workString = "${ups_cgi}${workString}";
 
 	my @ret = split( '%', get($workString) );
@@ -88,6 +96,15 @@ LWP Module
 		2. Origin Zip Code
 		3. Destination Zip Code
 		4. Weight of Package
+
+	and optionally:
+
+		5.  Country Code,
+		6.  Length,
+		7.  Width,
+		8.  Height,
+		9.  Oversized (defined if oversized), and
+		10. COD (defined if C.O.D.)
 
 =item 1.
 

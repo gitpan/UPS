@@ -1,4 +1,4 @@
-$Id: README,v 1.5 1998/01/18 05:53:37 msolomon Exp msolomon $
+$Id: README,v 1.6 1998/02/23 17:32:40 msolomon Exp $
 
 Business::UPS - UPS Shipping Cost Module
 
@@ -31,3 +31,6 @@ TO INSTALL:
 	make
 	make install
 
+Included in archive:
+	- Tab delineated country-code list
+	- Tab delineated product-code list
